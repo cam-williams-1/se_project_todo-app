@@ -14,5 +14,4 @@ With this project, I refactored some code utilized JavaScript Modules, JavaScrip
 ## Deployment
 
 This project is deployed on GitHub Pages:
-
--
+https://cam-williams-1.github.io/se_project_todo-app/
