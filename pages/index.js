@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 import { initialTodos, validationConfig } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Todo from "../components/Todo.js";
+import Section from "../components/Section.js";
 
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
@@ -9,18 +10,29 @@ const addTodoForm = addTodoPopup.querySelector(".popup__form");
 const addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
 const todosList = document.querySelector(".todos__list");
 
+const generateTodo = (data) => {
+  const todo = new Todo(data, "#todo-template");
+  const todoElement = todo.getView();
+  return todoElement;
+};
+
+const section = new Section({
+  items: initialTodos,
+  renderer: (item) => {
+    const todo = generateTodo(item);
+    section.addItem(todo);
+  },
+  containerSelector: ".todos__list",
+});
+
+section.renderItems();
+
 const openModal = (modal) => {
   modal.classList.add("popup_visible");
 };
 
 const closeModal = (modal) => {
   modal.classList.remove("popup_visible");
-};
-
-const generateTodo = (data) => {
-  const todo = new Todo(data, "#todo-template");
-  const todoElement = todo.getView();
-  return todoElement;
 };
 
 addTodoButton.addEventListener("click", () => {
@@ -32,8 +44,9 @@ addTodoCloseBtn.addEventListener("click", () => {
 });
 
 const renderTodo = (item) => {
+  // is this correct ??
   const todo = generateTodo(item);
-  todosList.append(todo);
+  section.addItem(todo);
 };
 
 addTodoForm.addEventListener("submit", (evt) => {
@@ -50,11 +63,6 @@ addTodoForm.addEventListener("submit", (evt) => {
   closeModal(addTodoPopup);
 
   todoValidator.resetValidation();
-});
-
-initialTodos.forEach((item) => {
-  const todo = generateTodo(item);
-  renderTodo(item);
 });
 
 const todoValidator = new FormValidator(validationConfig, addTodoForm);
