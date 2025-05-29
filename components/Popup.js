@@ -6,19 +6,32 @@ export default class Popup {
   }
   open() {
     this._element.classList.add("popup_visible");
+    document.addEventListener("keyup", this._handleEscapeClose);
   }
   close() {
     this._element.classList.remove("popup_visible");
+    document.removeEventListener("keyup", this._handleEscapeClose);
   }
-  _handleEscapeClose() {
-    // logic for the escape key
+  _handleEscapeClose(evt) {
+    if (evt.key === "Escape") {
+      this.close();
+    }
   }
   setEventListeners() {
-    this._popupCloseBtn.addEventListener("click", () => {
-      this.close();
+    // after the mousedown listener, delete this one because it will do both
+    // this._popupCloseBtn.addEventListener("click", () => {
+    //   this.close();
+    // });
+
+    this._element.addEventListener("mousedown", (evt) => {
+      if (
+        evt.target.classList.contains("popup__close") ||
+        evt.target.classList.contains("popup")
+      ) {
+        this.close();
+      }
     });
   }
-  // TODO - when user clicks outside of the popup it should close as well
 }
 
 // only instantiate the child PopupWithForm class in index.js

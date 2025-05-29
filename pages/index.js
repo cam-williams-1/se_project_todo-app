@@ -39,12 +39,7 @@ addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();
 });
 
-// addTodoCloseBtn.addEventListener("click", () => {
-//   addTodoPopup.close();
-// });
-
 const renderTodo = (item) => {
-  // is this correct ??
   const todo = generateTodo(item);
   section.addItem(todo);
 };
