@@ -1,8 +1,7 @@
 export default class Popup {
   constructor({ popupSelector }) {
     this._element = document.querySelector(popupSelector);
-    this._popupCloseBtn = this._element.querySelector(".popup__close");
-    // because it is within the element
+    this._handleEscapeClose = this._handleEscapeClose.bind(this);
   }
 
   open() {

@@ -1,16 +1,16 @@
 class Todo {
-  constructor(data, tempSelector, handleCheck, handleDelete, updateTodo) {
+  constructor(data, tempSelector, handleCheck, handleDelete) {
     this._data = data;
     this._templateElement = document.querySelector(tempSelector);
     this._handleCheck = handleCheck;
     this._handleDelete = handleDelete;
-    this._updateTodo = updateTodo;
+    // this._updateTodo = updateTodo;
   }
   _setEventListeners() {
     this._todoDeleteBtn.addEventListener("click", () => {
       this._todoElement.remove();
       this._handleDelete(this._data.completed);
-      this._updateTodo();
+      // this._updateTodo();
       // removes a task from list
     });
 
